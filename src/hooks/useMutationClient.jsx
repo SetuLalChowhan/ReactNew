@@ -3,11 +3,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "./useAxiosPublic";
 import useAxiosSecure from "./useAxiosSecure";
-import { useValueStore } from "@/providers/useState";
-
+import { useDispatch } from "react-redux";
+import {
+  setResetToken,
+  setApiError as setUiApiError,
+} from "@/redux/slices/uiSlice";
+import { setCredentials } from "@/redux/slices/authSlice";
 import { toast } from "react-toastify";
-import { useAuth } from "./useAuth";
-import { secureSet } from "@/utils/secure";
+import { useUserProfile } from "./fetchUserProfile";
 
 const useMutationClient = ({
   url,
@@ -25,14 +28,17 @@ const useMutationClient = ({
   externalErrorSetter,
 }) => {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const client = isPrivate ? useAxiosSecure() : useAxiosPublic();
   const navigate = useNavigate();
-  const {user,setUser} =useAuth()
 
-  
-  const { setResetToken, setApiError: setGlobalApiError } = useValueStore();
-
-  const setApiError = externalErrorSetter || setGlobalApiError;
+  const setApiError = (error) => {
+    if (externalErrorSetter) {
+      externalErrorSetter(error);
+    } else {
+      dispatch(setUiApiError(error));
+    }
+  };
 
   return useMutation({
     mutationFn: async ({ data, config }) => {
@@ -48,15 +54,22 @@ const useMutationClient = ({
 
       toast.success(data?.message || successMessage);
 
-      // 🔐 login handling
-      if (isLogin ) {
-        setUser(data.userData);
-        secureSet("user", data.userData);
+      // � login handling
+      if (isLogin) {
+        const token = data.token || data.access_token;
+        const user = data.userData || data.user;
+
+        if (token) {
+          dispatch(setCredentials({ token, user }));
+          // Optionally fetch profile to ensure data consistency
+          useUserProfile();
+        }
       }
 
-      // 🔁 password reset handling
+      // �🔁 password reset handling
+
       if (data?.resetKey) {
-        setResetToken(data.resetKey);
+        dispatch(setResetToken(data.resetKey));
       }
 
       // ♻️ invalidate queries

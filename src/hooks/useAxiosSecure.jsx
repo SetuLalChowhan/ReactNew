@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useAuth } from "./useAuth";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../redux/slices/authSlice";
 
 const useAxiosSecure = () => {
-  const auth = useAuth();
-  // Ensure that auth and user are defined before destructuring
-  const access_token = auth?.user?.token;
+  const token = useSelector(selectCurrentToken);
+  const access_token = token;
 
   const axiosSecure = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
