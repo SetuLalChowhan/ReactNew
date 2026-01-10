@@ -8,7 +8,7 @@ import { secureGet, secureRemove, secureSet } from "../utils/secure";
 
 export const AuthProvider = ({ children }) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+
   // Initialize token from secure storage
   const [token, setToken] = useState(secureGet("access_token"));
   const [user, setUser] = useState(secureGet("user"));
@@ -106,7 +106,6 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
 
       toast.success("Logout successful");
-      navigate("/auth/sign-in");
     } catch (err) {
       console.error("Logout failed:", err);
       toast.error("Logout failed. Please try again.");
