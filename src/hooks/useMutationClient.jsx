@@ -11,8 +11,6 @@ import {
 } from "@/redux/slices/uiSlice";
 import { setToken } from "@/redux/slices/authSlice";
 import { toast } from "react-toastify";
-import { useUserProfile } from "./fetchUserProfile";
-
 const useMutationClient = ({
   url,
   method = "post",
