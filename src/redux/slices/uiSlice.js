@@ -28,6 +28,6 @@ const uiSlice = createSlice({
   },
 });
 
-export const { setResetToken, setApiError, clearUiState } = uiSlice.actions;
+export const { setResetToken, setApiError, clearUiState, setUser } = uiSlice.actions;
 
 export default uiSlice.reducer;

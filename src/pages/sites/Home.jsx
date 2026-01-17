@@ -1,15 +1,12 @@
-import { useUserProfile } from '@/hooks/fetchUserProfile'
-import { setCredentials } from '@/redux/slices/authSlice'
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useUserProfile } from "@/hooks/fetchUserProfile";
+import { setToken } from "@/redux/slices/authSlice";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
+  return <div>Home</div>;
+};
 
-  return (
-    <div>Home</div>
-  )
-}
-
-export default Home
+export default Home;

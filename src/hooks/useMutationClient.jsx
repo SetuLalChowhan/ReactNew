@@ -7,8 +7,9 @@ import { useDispatch } from "react-redux";
 import {
   setResetToken,
   setApiError as setUiApiError,
+  setUser,
 } from "@/redux/slices/uiSlice";
-import { setCredentials } from "@/redux/slices/authSlice";
+import { setToken } from "@/redux/slices/authSlice";
 import { toast } from "react-toastify";
 import { useUserProfile } from "./fetchUserProfile";
 
@@ -60,7 +61,10 @@ const useMutationClient = ({
         const user = data.userData || data.user;
 
         if (token) {
-          dispatch(setCredentials({ token, user }));
+          dispatch(setToken(token));
+        }
+        if (user) {
+          dispatch(setUser(user));
         }
       }
 
