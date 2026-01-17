@@ -61,8 +61,6 @@ const useMutationClient = ({
 
         if (token) {
           dispatch(setCredentials({ token, user }));
-          // Optionally fetch profile to ensure data consistency
-          useUserProfile();
         }
       }
 

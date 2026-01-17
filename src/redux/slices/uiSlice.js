@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   resetToken: null,
   apiError: null,
+  user: null,
+  
 };
 
 const uiSlice = createSlice({
@@ -11,6 +13,10 @@ const uiSlice = createSlice({
   reducers: {
     setResetToken: (state, action) => {
       state.resetToken = action.payload;
+    },
+    setUser: (state, action) => {
+      const { user } = action.payload;
+      state.user = user;
     },
     setApiError: (state, action) => {
       state.apiError = action.payload;

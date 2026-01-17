@@ -1,26 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "@/redux/slices/authSlice"; 
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentToken, setUser } from "@/redux/slices/authSlice";
+import useAxiosSecure from "./useAxiosSecure";
+import { useEffect } from "react";
 
 export const useUserProfile = () => {
   const token = useSelector(selectCurrentToken);
+  const dispatch = useDispatch();
+  const axiosSecure = useAxiosSecure();
 
-  return useQuery({
-    queryKey: ["userProfile", token], // Re-fetches if token changes
+  const query = useQuery({
+    queryKey: ["userProfile", token],
     queryFn: async () => {
       if (!token) return null;
-
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/get-profile`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axiosSecure.get("/get-profile");
       return res.data.userdata || res.data;
     },
-    enabled: !!token, // Don't run the query if there is no token
-    staleTime: 1000 * 60 * 5, // Keep data fresh for 5 mins
+    enabled: !!token,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
+
+  // Sync with Redux whenever data is fetched
+  useEffect(() => {
+    if (query.data) {
+      dispatch(setUser(query.data));
+    }
+  }, [query.data, dispatch]);
+
+  return query;
 };
-// const { data: user, isLoading, error, refetch } = useUserProfile();
