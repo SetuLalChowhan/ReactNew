@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentToken, setUser } from "@/redux/slices/authSlice";
+import { selectCurrentToken } from "@/redux/slices/authSlice";
 import useAxiosSecure from "./useAxiosSecure";
 import { useEffect } from "react";
+import { setUser } from "@/redux/slices/uiSlice";
 
 export const useUserProfile = () => {
   const token = useSelector(selectCurrentToken);
