@@ -232,7 +232,7 @@ const Home = () => {
             </div>
 
             {/* Card 4: Wellbeing */}
-            <div className="relative w-[84%] max-h-[280px] rounded-[26px] sm:rounded-[32px] overflow-hidden shadow-sm group cursor-pointer">
+            <div className="relative w-[84%] max-h-[280px] lg:-mt-5 rounded-[26px] sm:rounded-[32px] overflow-hidden shadow-sm group cursor-pointer">
               <img
                 src={user4Img}
                 alt="Wellbeing"
