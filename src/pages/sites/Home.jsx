@@ -72,7 +72,7 @@ const Home = () => {
             <div className="flex items-center gap-3">
               <div className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-full bg-gray-50 text-xs font-medium text-gray-700">
                 <img src={lockImg} alt="lock" />
-                <span>100% Safe</span>
+                <span>100% Anonymous</span>
               </div>
               <div className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-full bg-gray-50 text-xs font-medium text-gray-700">
                 <img src={flagImg} alt="flag" />
