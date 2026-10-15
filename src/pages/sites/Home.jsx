@@ -6,7 +6,7 @@ import user1Img from "@/assets/images/user1.png";
 import user2Img from "@/assets/images/user2.png";
 import user3Img from "@/assets/images/user3.png";
 import user4Img from "@/assets/images/user4.png";
-import lockImg from "@/assets/images/Lock.png";
+import lockImg from "@/assets/images/lock.png";
 import flagImg from "@/assets/images/flag.png";
 import teacherImg from "@/assets/images/teacher.png";
 import principalImg from "@/assets/images/user.png";
